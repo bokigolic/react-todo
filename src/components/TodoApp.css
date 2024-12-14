@@ -18,6 +18,7 @@ body {
   padding: 20px;
   width: 450px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Naslov aplikacije */
@@ -29,6 +30,20 @@ body {
   border-bottom: 1px solid #444;
   padding-bottom: 10px;
   letter-spacing: 1px;
+}
+
+/* Offline banner */
+.offline-banner {
+  background-color: #f44336;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Input i dugme za dodavanje */
@@ -55,6 +70,41 @@ body {
   outline: none;
   border-color: #00bcd4;
   background-color: #444;
+}
+
+/* Dropdown menu */
+select {
+  padding: 10px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: #ffffff;
+  color: #333;
+  transition: border-color 0.3s, background-color 0.3s;
+  cursor: pointer;
+}
+
+select:hover {
+  border-color: #00bcd4;
+}
+
+select:focus {
+  outline: none;
+  border-color: #00bcd4;
+  background-color: #f0f8ff;
+}
+
+/* Dropdown u tamnom modu */
+.dark-mode select {
+  background-color: #1f1f1f;
+  color: #e0e0e0;
+  border-color: #555;
+}
+
+.dark-mode select:hover,
+.dark-mode select:focus {
+  border-color: #8bc34a;
+  background-color: #333;
 }
 
 /* Dugme za dodavanje */
@@ -92,6 +142,7 @@ body {
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease, transform 0.3s ease;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .task-item:hover {
@@ -99,9 +150,15 @@ body {
   transform: translateY(-2px);
 }
 
-.task-item span {
-  font-size: 16px;
-  color: #e0e0e0;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Završeni zadatak */
@@ -110,132 +167,88 @@ body {
   color: #8bc34a;
 }
 
-/* Input za uređivanje */
-.edit-input {
-  flex: 1;
-  padding: 10px;
-  background-color: #444;
-  color: #fff;
-  border: 1px solid #666;
-  border-radius: 8px;
-  font-size: 14px;
-  margin-right: 10px;
-  transition: all 0.3s ease;
-}
-
-.edit-input:focus {
-  outline: none;
-  border-color: #8bc34a;
-}
-
-/* Dugme za čuvanje */
-.save-button {
-  background-color: #8bc34a;
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  font-size: 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.save-button:hover {
-  background-color: #689f38;
-}
-
-/* Dugme za uređivanje */
-.edit-button {
-  background: transparent;
-  border: none;
-  color: #ffc107;
-  cursor: pointer;
-  font-size: 18px;
-  transition: color 0.3s ease;
-}
-
-.edit-button:hover {
-  color: #ffb300;
-}
-
-/* Dugme za brisanje */
-.delete-button {
-  background: transparent;
-  border: none;
-  color: #f44336;
-  cursor: pointer;
-  font-size: 18px;
-  transition: color 0.3s ease;
-}
-
-.delete-button:hover {
-  color: #d32f2f;
-}
-
 /* Checkbox */
 .task-item input[type="checkbox"] {
-  margin-right: 10px;
-  transform: scale(1.2);
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #00bcd4;
+  border-radius: 4px;
+  background-color: transparent;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-/* Media query za mobilne uređaje */
-@media (max-width: 768px) {
-  .todo-app {
-    width: 90%;
-    padding: 15px;
-  }
-
-  .task-input {
-    font-size: 16px;
-    padding: 12px;
-  }
-
-  .add-button {
-    font-size: 16px;
-    padding: 12px;
-  }
-
-  .task-item {
-    padding: 15px;
-  }
-
-  .edit-input {
-    font-size: 16px;
-    padding: 10px;
-  }
-
-  .save-button {
-    font-size: 16px;
-    padding: 10px;
-  }
+.task-item input[type="checkbox"]:checked {
+  background-color: #00bcd4;
+  border-color: #008ba3;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M6.173 10.097l-3.27-3.27a.75.75 0 1 0-1.06 1.06l3.8 3.8c.292.292.767.292 1.06 0l7.8-7.8a.75.75 0 0 0-1.06-1.06l-7.27 7.27z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
 }
-.clear-button {
-  background-color: #f44336;
+
+.task-item input[type="checkbox"]:hover {
+  border-color: #008ba3;
+}
+
+/* Dugme za prebacivanje moda */
+.toggle-theme {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #00bcd4;
   color: #fff;
   border: none;
-  padding: 10px 15px;
+  padding: 10px 20px;
   font-size: 14px;
-  border-radius: 8px;
+  border-radius: 50px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  margin-top: 15px;
-  display: block;
-  width: 100%;
-  text-align: center;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.clear-button:hover {
-  background-color: #d32f2f;
+.toggle-theme:hover {
+  background-color: #008ba3;
+  transform: scale(1.05);
+}
+
+.toggle-theme:active {
+  transform: scale(0.95);
 }
 
 /* Tamni mod */
 .dark-mode {
-  background-color: #1e1e1e;
+  background-color: #181818;
+  color: #d3d3d3;
+}
+
+.dark-mode .task-item {
+  background-color: #252525;
   color: #e0e0e0;
+}
+
+.dark-mode .task-input {
+  background-color: #202020;
+  border-color: #333;
 }
 
 /* Svetli mod */
 .light-mode {
-  background-color: #f7f7f7;
+  background-color: #ffffff;
   color: #333;
+}
+
+.light-mode .task-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+}
+
+.light-mode .task-input {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+}
+
+.light-mode input[type="checkbox"]:checked {
+  background-color: #00bcd4;
 }

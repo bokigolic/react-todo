@@ -66,15 +66,6 @@ const TodoApp = () => {
 
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
-  const setReminder = (task) => {
-    if ("Notification" in window && Notification.permission === "granted") {
-      const delay = 5000; // 5 sekundi
-      setTimeout(() => {
-        new Notification("Task Reminder", { body: `Don't forget: ${task.text}` });
-      }, delay);
-    }
-  };
-
   const completedTasks = todos.filter((todo) => todo.isCompleted).length;
   const totalTasks = todos.length;
   const pendingTasks = totalTasks - completedTasks;
@@ -84,6 +75,10 @@ const TodoApp = () => {
       <h1 className="title">My To-Do List</h1>
 
       {!isOnline && <div className="offline-banner">You are offline</div>}
+
+      <button className="toggle-theme" onClick={toggleTheme}>
+        {isDarkMode ? "Light Mode" : "Dark Mode"}
+      </button>
 
       <div className="input-container">
         <input
@@ -142,9 +137,6 @@ const TodoApp = () => {
                 <button className="delete-button" onClick={() => handleDeleteTask(index)}>
                   <FaTrashAlt />
                 </button>
-                <button className="reminder-button" onClick={() => setReminder(todo)}>
-                  Set Reminder
-                </button>
               </>
             )}
           </li>
@@ -156,10 +148,6 @@ const TodoApp = () => {
           Clear All
         </button>
       )}
-
-      <button className="toggle-theme" onClick={toggleTheme}>
-        {isDarkMode ? "Light Mode" : "Dark Mode"}
-      </button>
     </div>
   );
 };
