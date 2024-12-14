@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaDeleteLeft } from "react-icons/fa6";
 
 const TodoApp = () => {
 
@@ -15,6 +16,10 @@ const TodoApp = () => {
       setTask("");
     }
   };
+  const handleDeleteTask = (indexToDelete) => {
+    const updatedTodos = todos.filter((_, index) => index !== indexToDelete)
+    setTodos(updatedTodos);
+  }
 
   return (
     <div>
@@ -27,7 +32,10 @@ const TodoApp = () => {
       <button onClick={handleAddTask}>Add</button>
       <ul>
         {todos.map((todo, index) => (
-          <li key={index}>{todo}</li>
+          <li key={index}>
+            {todo}{" "}
+            <button onClick={() => handleDeleteTask(index)}>{<FaDeleteLeft />}</button>
+          </li>
         ))}
 
       </ul>
