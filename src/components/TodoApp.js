@@ -78,7 +78,7 @@ const TodoApp = () => {
 
   return (
     <div className={`todo-app ${isDarkMode ? "dark-mode" : "light-mode"}`}>
-      <h1 className="title">My To-Do List</h1>
+      <h1 className="title">EasyTasks</h1>
 
       {!isOnline && <div className="offline-banner">You are offline</div>}
 
