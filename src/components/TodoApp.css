@@ -1,0 +1,241 @@
+/* Globalni stilovi */
+body {
+  font-family: "Roboto Mono", monospace;
+  background-color: #1e1e1e;
+  margin: 0;
+  padding: 0;
+  color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Kontejner aplikacije */
+.todo-app {
+  background: #2c2c2c;
+  border-radius: 12px;
+  padding: 20px;
+  width: 450px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Naslov aplikacije */
+.title {
+  font-size: 24px;
+  color: #00bcd4;
+  text-align: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #444;
+  padding-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+/* Input i dugme za dodavanje */
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.task-input {
+  flex: 1;
+  padding: 10px;
+  background-color: #333;
+  color: #e0e0e0;
+  border: 1px solid #555;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.task-input:focus {
+  outline: none;
+  border-color: #00bcd4;
+  background-color: #444;
+}
+
+/* Dugme za dodavanje */
+.add-button {
+  background-color: #00bcd4;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.add-button:hover {
+  background-color: #008ba3;
+  transform: scale(1.05);
+}
+
+/* Lista zadataka */
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #333;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.task-item:hover {
+  background-color: #444;
+  transform: translateY(-2px);
+}
+
+.task-item span {
+  font-size: 16px;
+  color: #e0e0e0;
+}
+
+/* Završeni zadatak */
+.completed {
+  text-decoration: line-through;
+  color: #8bc34a;
+}
+
+/* Input za uređivanje */
+.edit-input {
+  flex: 1;
+  padding: 10px;
+  background-color: #444;
+  color: #fff;
+  border: 1px solid #666;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: #8bc34a;
+}
+
+/* Dugme za čuvanje */
+.save-button {
+  background-color: #8bc34a;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.save-button:hover {
+  background-color: #689f38;
+}
+
+/* Dugme za uređivanje */
+.edit-button {
+  background: transparent;
+  border: none;
+  color: #ffc107;
+  cursor: pointer;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.edit-button:hover {
+  color: #ffb300;
+}
+
+/* Dugme za brisanje */
+.delete-button {
+  background: transparent;
+  border: none;
+  color: #f44336;
+  cursor: pointer;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.delete-button:hover {
+  color: #d32f2f;
+}
+
+/* Checkbox */
+.task-item input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.2);
+}
+
+/* Media query za mobilne uređaje */
+@media (max-width: 768px) {
+  .todo-app {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .task-input {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .add-button {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .task-item {
+    padding: 15px;
+  }
+
+  .edit-input {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .save-button {
+    font-size: 16px;
+    padding: 10px;
+  }
+}
+.clear-button {
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 15px;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.clear-button:hover {
+  background-color: #d32f2f;
+}
+
+/* Tamni mod */
+.dark-mode {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+/* Svetli mod */
+.light-mode {
+  background-color: #f7f7f7;
+  color: #333;
+}
