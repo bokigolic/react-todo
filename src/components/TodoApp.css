@@ -235,7 +235,7 @@ select:focus {
 
 /* Svetli mod */
 .light-mode {
-  background-color: #ffffff;
+  background-color: #bebbbb;
   color: #333;
 }
 
@@ -245,10 +245,118 @@ select:focus {
 }
 
 .light-mode .task-input {
-  background-color: #ffffff;
+  background-color: #918e8e;
   border: 1px solid #ddd;
 }
 
 .light-mode input[type="checkbox"]:checked {
   background-color: #00bcd4;
+}
+
+/* Dugme za uređivanje */
+.edit-button {
+  background: transparent;
+  border: none;
+  color: #ffc107;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.edit-button:hover {
+  background-color: rgba(255, 193, 7, 0.1);
+  transform: scale(1.1);
+}
+
+.edit-button:active {
+  transform: scale(0.95);
+}
+
+/* Tamni mod za edit dugme */
+.dark-mode .edit-button {
+  color: #ffc107;
+}
+
+.dark-mode .edit-button:hover {
+  background-color: rgba(255, 193, 7, 0.2);
+}
+
+/* Dugme za brisanje */
+.delete-button {
+  background: transparent;
+  border: none;
+  color: #f44336;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.delete-button:hover {
+  background-color: rgba(244, 67, 54, 0.1);
+  transform: scale(1.1);
+}
+
+.delete-button:active {
+  transform: scale(0.95);
+}
+
+/* Tamni mod za delete dugme */
+.dark-mode .delete-button {
+  color: #f44336;
+}
+
+.dark-mode .delete-button:hover {
+  background-color: rgba(244, 67, 54, 0.2);
+}
+
+/* Footer osnovni stil */
+.footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: #aaa;
+  padding-top: 10px;
+  border-top: 1px solid #444;
+}
+
+/* Tekst u footer-u */
+.footer p {
+  margin: 0;
+  line-height: 1.5;
+  opacity: 0; /* Početna vidljivost */
+  transform: translateY(20px); /* Početni položaj */
+  animation: fadeInMoveUp 1s ease-out forwards; /* Aktiviraj animaciju */
+}
+
+/* Animacija za pojavljivanje i pomeranje */
+@keyframes fadeInMoveUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Boje u tamnom i svetlom modu */
+.dark-mode .footer {
+  color: #666;
+}
+
+.light-mode .footer {
+  color: #999;
 }

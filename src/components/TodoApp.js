@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaTrashAlt, FaEdit } from "react-icons/fa";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import "./TodoApp.css";
 
 const TodoApp = () => {
@@ -13,6 +13,7 @@ const TodoApp = () => {
 
   const categories = ["Work", "Personal", "Shopping", "Fitness"];
 
+  // Praćenje online/offline statusa
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
@@ -26,8 +27,7 @@ const TodoApp = () => {
     };
   }, []);
 
-  const handleInputChange = (e) => setTask(e.target.value);
-
+  // Dodavanje zadatka
   const handleAddTask = () => {
     if (task.trim() !== "") {
       setTodos([
@@ -38,11 +38,13 @@ const TodoApp = () => {
     }
   };
 
+  // Brisanje zadatka
   const handleDeleteTask = (indexToDelete) => {
     const updatedTodos = todos.filter((_, index) => index !== indexToDelete);
     setTodos(updatedTodos);
   };
 
+  // Uređivanje zadatka
   const handleEditTask = (index) => {
     setEditingIndex(index);
     setEditingText(todos[index].text);
@@ -56,16 +58,20 @@ const TodoApp = () => {
     setEditingText("");
   };
 
+  // Označavanje završetka zadatka
   const handleToggleComplete = (index) => {
     const updatedTodos = [...todos];
     updatedTodos[index].isCompleted = !updatedTodos[index].isCompleted;
     setTodos(updatedTodos);
   };
 
+  // Brisanje svih zadataka
   const handleClearAll = () => setTodos([]);
 
+  // Prebacivanje između tamnog i svetlog moda
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
+  // Statistika zadataka
   const completedTasks = todos.filter((todo) => todo.isCompleted).length;
   const totalTasks = todos.length;
   const pendingTasks = totalTasks - completedTasks;
@@ -77,7 +83,7 @@ const TodoApp = () => {
       {!isOnline && <div className="offline-banner">You are offline</div>}
 
       <button className="toggle-theme" onClick={toggleTheme}>
-        {isDarkMode ? "Light Mode" : "Dark Mode"}
+        {isDarkMode ? "☀ Light Mode" : "🌙 Dark Mode"}
       </button>
 
       <div className="input-container">
@@ -86,7 +92,7 @@ const TodoApp = () => {
           className="task-input"
           placeholder="Add a new task"
           value={task}
-          onChange={handleInputChange}
+          onChange={(e) => setTask(e.target.value)}
         />
         <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
           {categories.map((category) => (
@@ -118,11 +124,11 @@ const TodoApp = () => {
               <>
                 <input
                   type="text"
-                  className="edit-input"
+                  className="task-input"
                   value={editingText}
                   onChange={(e) => setEditingText(e.target.value)}
                 />
-                <button className="save-button" onClick={() => handleSaveTask(index)}>
+                <button className="add-button" onClick={() => handleSaveTask(index)}>
                   Save
                 </button>
               </>
@@ -144,10 +150,15 @@ const TodoApp = () => {
       </ul>
 
       {todos.length > 0 && (
-        <button className="clear-button" onClick={handleClearAll}>
+        <button className="add-button" onClick={handleClearAll}>
           Clear All
         </button>
       )}
+      <footer className="footer">
+        <p className="fade-in">
+          by Boki &copy; {new Date().getFullYear()}.
+        </p>
+      </footer>
     </div>
   );
 };
