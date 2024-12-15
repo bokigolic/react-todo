@@ -10,6 +10,7 @@ const TodoApp = () => {
   const [selectedCategory, setSelectedCategory] = useState("Work");
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [searchText, setSearchText] = useState("");
 
   const categories = ["Work", "Personal", "Shopping", "Fitness"];
 
@@ -83,7 +84,7 @@ const TodoApp = () => {
       {!isOnline && <div className="offline-banner">You are offline</div>}
 
       <button className="toggle-theme" onClick={toggleTheme}>
-        {isDarkMode ? "☀ Light Mode" : "🌙 Dark Mode"}
+        {isDarkMode ? "☀️" : "🌙"}
       </button>
 
       <div className="input-container">
@@ -106,6 +107,16 @@ const TodoApp = () => {
         </button>
       </div>
 
+      <div className="input-container">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Search tasks..."
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+      </div>
+
       <div className="stats">
         <p>Total Tasks: {totalTasks}</p>
         <p>Completed: {completedTasks}</p>
@@ -113,40 +124,42 @@ const TodoApp = () => {
       </div>
 
       <ul className="task-list">
-        {todos.map((todo, index) => (
-          <li key={todo.id} className="task-item">
-            <input
-              type="checkbox"
-              checked={todo.isCompleted}
-              onChange={() => handleToggleComplete(index)}
-            />
-            {editingIndex === index ? (
-              <>
-                <input
-                  type="text"
-                  className="task-input"
-                  value={editingText}
-                  onChange={(e) => setEditingText(e.target.value)}
-                />
-                <button className="add-button" onClick={() => handleSaveTask(index)}>
-                  Save
-                </button>
-              </>
-            ) : (
-              <>
-                <span className={todo.isCompleted ? "completed" : ""}>
-                  {todo.text} ({todo.category})
-                </span>
-                <button className="edit-button" onClick={() => handleEditTask(index)}>
-                  <FaEdit />
-                </button>
-                <button className="delete-button" onClick={() => handleDeleteTask(index)}>
-                  <FaTrashAlt />
-                </button>
-              </>
-            )}
-          </li>
-        ))}
+        {todos
+          .filter((todo) => todo.text.toLowerCase().includes(searchText.toLowerCase()))
+          .map((todo, index) => (
+            <li key={todo.id} className="task-item">
+              <input
+                type="checkbox"
+                checked={todo.isCompleted}
+                onChange={() => handleToggleComplete(index)}
+              />
+              {editingIndex === index ? (
+                <>
+                  <input
+                    type="text"
+                    className="task-input"
+                    value={editingText}
+                    onChange={(e) => setEditingText(e.target.value)}
+                  />
+                  <button className="add-button" onClick={() => handleSaveTask(index)}>
+                    Save
+                  </button>
+                </>
+              ) : (
+                <>
+                  <span className={todo.isCompleted ? "completed" : ""}>
+                    {todo.text} ({todo.category})
+                  </span>
+                  <button className="edit-button" onClick={() => handleEditTask(index)}>
+                    <FaEdit />
+                  </button>
+                  <button className="delete-button" onClick={() => handleDeleteTask(index)}>
+                    <FaTrashAlt />
+                  </button>
+                </>
+              )}
+            </li>
+          ))}
       </ul>
 
       {todos.length > 0 && (

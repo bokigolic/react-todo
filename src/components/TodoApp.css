@@ -398,3 +398,63 @@ select:focus {
     font-size: 12px;
   }
 }
+
+.toggle-theme {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #00bcd4;
+  color: #fff;
+  border: none;
+  margin: 2px;
+  padding: 15px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%; /* Kružno dugme */
+  cursor: pointer;
+  font-size: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Blaga senka */
+  transition: all 0.3s ease; /* Glatke promene */
+}
+
+.toggle-theme:hover {
+  background-color: #008ba3; /* Tamnija nijansa na hover */
+  transform: scale(1.1); /* Blago povećanje na hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.toggle-theme:active {
+  transform: scale(0.9); /* Klik efekat */
+}
+
+/* Tamni mod za dugme */
+.dark-mode .toggle-theme {
+  background-color: #444;
+  color: #fff;
+}
+
+.dark-mode .toggle-theme:hover {
+  background-color: #555;
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(255, 255, 255, 0.2);
+}
+
+.search-container {
+  margin-bottom: 20px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #555;
+  border-radius: 8px;
+  background-color: #333;
+  color: #e0e0e0;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #00bcd4;
+  background-color: #444;
+}
