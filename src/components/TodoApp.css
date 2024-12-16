@@ -622,3 +622,45 @@ select:focus {
 .classic-toggle-theme:active {
   transform: scale(0.95);
 }
+
+@media (max-width: 768px) {
+  .edit-button svg,
+  .delete-button svg {
+    width: 24px; /* Povećajte veličinu ikona */
+    height: 24px;
+  }
+}
+
+/* Globalne klase za dugmad */
+.edit-button,
+.delete-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px; /* Ovo možete povećati za desktop */
+  transition: color 0.3s ease;
+}
+
+.edit-button svg,
+.delete-button svg {
+  width: 18px; /* Default veličina za desktop */
+  height: 18px;
+}
+
+/* Hover efekti */
+.edit-button:hover {
+  color: #ffc107;
+}
+
+.delete-button:hover {
+  color: #f44336;
+}
+
+/* Specifično za male uređaje */
+@media (max-width: 768px) {
+  .edit-button svg,
+  .delete-button svg {
+    width: 24px; /* Povećana veličina ikona */
+    height: 24px;
+  }
+}
