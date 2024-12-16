@@ -19,29 +19,20 @@ const TodoApp = () => {
   const categories = ["All", "Work", "Personal", "Shopping", "Fitness"];
   const priorities = ["All", "High", "Medium", "Low"];
 
-  // Učitaj zadatke i arhive iz localStorage pri učitavanju
+  // Load tasks and archived tasks from localStorage
   useEffect(() => {
-    try {
-      const savedTodos = JSON.parse(localStorage.getItem("todos")) || [];
-      const savedArchived = JSON.parse(localStorage.getItem("archivedTodos")) || [];
-      setTodos(savedTodos);
-      setArchivedTodos(savedArchived);
-    } catch (error) {
-      console.error("Error loading data from localStorage:", error);
-    }
+    const savedTodos = JSON.parse(localStorage.getItem("todos")) || [];
+    const savedArchived = JSON.parse(localStorage.getItem("archivedTodos")) || [];
+    setTodos(savedTodos);
+    setArchivedTodos(savedArchived);
   }, []);
 
-  // Čuvanje zadataka i arhiviranih zadataka u localStorage
+  // Save tasks and archived tasks to localStorage
   useEffect(() => {
-    try {
-      localStorage.setItem("todos", JSON.stringify(todos));
-      localStorage.setItem("archivedTodos", JSON.stringify(archivedTodos));
-    } catch (error) {
-      console.error("Error saving data to localStorage:", error);
-    }
+    localStorage.setItem("todos", JSON.stringify(todos));
+    localStorage.setItem("archivedTodos", JSON.stringify(archivedTodos));
   }, [todos, archivedTodos]);
 
-  // Dodavanje zadatka
   const handleAddTask = () => {
     if (task.trim() !== "") {
       setTodos([
@@ -60,19 +51,26 @@ const TodoApp = () => {
     }
   };
 
-  // Brisanje zadatka
   const handleDeleteTask = (indexToDelete) => {
     setTodos(todos.filter((_, index) => index !== indexToDelete));
   };
 
-  // Arhiviranje zadatka
   const handleArchiveTask = (indexToArchive) => {
     const taskToArchive = todos[indexToArchive];
     setArchivedTodos([...archivedTodos, taskToArchive]);
     handleDeleteTask(indexToArchive);
   };
 
-  // Uređivanje zadatka
+  const handleRestoreTask = (indexToRestore) => {
+    const taskToRestore = archivedTodos[indexToRestore];
+    setTodos([...todos, taskToRestore]);
+    setArchivedTodos(archivedTodos.filter((_, index) => index !== indexToRestore));
+  };
+
+  const handleDeleteArchivedTask = (indexToDelete) => {
+    setArchivedTodos(archivedTodos.filter((_, index) => index !== indexToDelete));
+  };
+
   const handleEditTask = (index) => {
     setEditingIndex(index);
     setEditingText(todos[index].text);
@@ -86,17 +84,14 @@ const TodoApp = () => {
     setEditingText("");
   };
 
-  // Označavanje završetka zadatka
   const handleToggleComplete = (index) => {
     const updatedTodos = [...todos];
     updatedTodos[index].isCompleted = !updatedTodos[index].isCompleted;
     setTodos(updatedTodos);
   };
 
-  // Prebacivanje između tamnog i svetlog moda
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
-  // Filtrirani zadaci
   const filteredTodos = todos
     .filter((todo) =>
       filterCategory === "All" || todo.category === filterCategory
@@ -106,7 +101,6 @@ const TodoApp = () => {
     )
     .filter((todo) => todo.text.toLowerCase().includes(searchText.toLowerCase()));
 
-  // Prikaz preostalih dana do roka
   const calculateDaysLeft = (deadline) => {
     if (!deadline) return "No deadline";
     const now = new Date();
@@ -118,10 +112,10 @@ const TodoApp = () => {
 
   return (
     <div className={`todo-app ${isDarkMode ? "dark-mode" : "light-mode"}`}>
-      <h1 className="title">Enhanced TodoApp</h1>
+      <h1 className="title">My Enhanced To-Do App</h1>
 
-      <button className="toggle-theme" onClick={toggleTheme}>
-        {isDarkMode ? "☀️" : "🌙"}
+      <button className="toggle-theme classic-toggle-theme" onClick={toggleTheme}>
+        {isDarkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
       </button>
 
       <div className="input-container">
@@ -157,43 +151,6 @@ const TodoApp = () => {
         </button>
       </div>
 
-      <div className="input-container">
-        <input
-          type="text"
-          className="search-input"
-          placeholder="Search tasks..."
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-        />
-        <select
-          value={filterCategory}
-          onChange={(e) => setFilterCategory(e.target.value)}
-          className="filter-dropdown"
-        >
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-        <select
-          value={filterPriority}
-          onChange={(e) => setFilterPriority(e.target.value)}
-          className="filter-dropdown"
-        >
-          {priorities.map((priority) => (
-            <option key={priority} value={priority}>
-              {priority}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className="stats">
-        <p>Total Tasks: {todos.length}</p>
-        <p>Archived Tasks: {archivedTodos.length}</p>
-      </div>
-
       <ul className="task-list">
         {filteredTodos.map((todo, index) => (
           <li key={todo.id} className="task-item">
@@ -210,7 +167,7 @@ const TodoApp = () => {
                   value={editingText}
                   onChange={(e) => setEditingText(e.target.value)}
                 />
-                <button className="add-button" onClick={() => handleSaveTask(index)}>
+                <button className="save-button" onClick={() => handleSaveTask(index)}>
                   Save
                 </button>
               </>
@@ -237,12 +194,18 @@ const TodoApp = () => {
 
       <h2>Archived Tasks</h2>
       <ul className="task-list">
-        {archivedTodos.map((todo) => (
+        {archivedTodos.map((todo, index) => (
           <li key={todo.id} className="task-item">
             <span className="archived-task">
               {todo.text} ({todo.category}) - {todo.priority}
             </span>
             <span className="task-deadline">{calculateDaysLeft(todo.deadline)}</span>
+            <button className="restore-button" onClick={() => handleRestoreTask(index)}>
+              Restore
+            </button>
+            <button className="delete-button" onClick={() => handleDeleteArchivedTask(index)}>
+              <FaTrashAlt />
+            </button>
           </li>
         ))}
       </ul>

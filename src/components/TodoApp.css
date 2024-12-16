@@ -579,3 +579,46 @@ select:focus {
     height: 32px;
   }
 }
+
+.restore-button {
+  background-color: #4caf50; /* Zelena boja za vraćanje */
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.restore-button:hover {
+  background-color: #388e3c;
+}
+
+.archived-task {
+  color: #888;
+  font-style: italic;
+}
+
+.classic-toggle-theme {
+  background-color: #00bcd4;
+  color: #fff;
+  border: none;
+  padding: 25px 30px;
+  font-size: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.classic-toggle-theme:hover {
+  background-color: #008ba3;
+  transform: scale(1.05);
+}
+
+.classic-toggle-theme:active {
+  transform: scale(0.95);
+}
