@@ -14,15 +14,6 @@
 - **Local Storage**: Automatically saves tasks and archived items in the browser's local storage.
 - **Responsive Design**: Optimized for mobile and desktop devices.
 
-## Screenshots
-
-### Dark Mode
-
-![Dark Mode](https://via.placeholder.com/800x400)
-
-### Light Mode
-
-![Light Mode](https://via.placeholder.com/800x400)
 
 ## Deployment
 
@@ -38,6 +29,6 @@ The application is live and accessible at:
 ## Author
 
 Developed by **Bojan Golic**.  
-For inquiries or contributions, contact me at **bojan@example.com**.
+For inquiries or contributions, contact me at **golichbojan@gmail.com.com**.
 
 ✔️ **Start organizing your tasks with Enhanced TodoApp today!** 😊
